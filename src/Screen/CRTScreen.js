@@ -12,8 +12,6 @@ export default class CRTScreen extends Screen {
 
     glCanvas.width = glCanvas.height = 512;
     glCanvas.style.dispay = 'block';
-    glCanvas.style.width = `${options.size}px`;
-    glCanvas.style.height = `${options.size}px`;
     glCanvas.style.imageRendering = 'pixelated';
 
     return canvas;

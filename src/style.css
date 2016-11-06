@@ -1,15 +1,94 @@
 body, html {
   background: #000;
+  box-sizing: border-box;
 }
 
-#screen {
+body * {
+  box-sizing: inherit;
+}
+
+#layout.desktop #screen {
   position: fixed;
   left: 50%;
   top: 50%;
-  transform: translateX(-50%) translateY(-50%) scale(0.9);
+  width: 90vmin;
+  height: 90vmin;
+  transform: translateX(-50%) translateY(-50%);
 }
 
-#screen canvas {
-  width: 100vmin !important;
-  height: 100vmin !important;
+#layout.desktop #screen canvas {
+  width: 100%;
+}
+
+#layout.desktop #mobileButtons {
+  display: none;
+}
+
+#layout.mobile {
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  background: #CCC;
+}
+
+#layout.mobile #screen {
+  position: relative;
+  padding: 20px;
+  flex: 1;
+}
+
+#layout.mobile #screen canvas {
+  width: 100% !important;
+  border: 20px solid #EEEEEE;
+}
+
+#layout.mobile #mobileButtons {
+  flex: 1;
+  position: relative;
+}
+
+#layout.mobile #mobileButtons button {
+  position: absolute;
+  display: block;
+  width: 15%;
+  height: 0;
+  padding-bottom: 15%;
+  background: #aaa;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+}
+
+#layout.mobile #mobileButtons button.b_37 {
+  right: 38%;
+  top: 35%;
+}
+
+#layout.mobile #mobileButtons button.b_38 {
+  right: 25%;
+  top: 20%;
+}
+
+#layout.mobile #mobileButtons button.b_39 {
+  right: 12%;
+  top: 35%;
+}
+
+#layout.mobile #mobileButtons button.b_40 {
+  right: 25%;
+  top: 50%;
+}
+
+#layout.mobile #mobileButtons button.b_90 {
+  left: 25%;
+  top: 25%;
+}
+
+#layout.mobile #mobileButtons button.b_88 {
+  left: 15%;
+  top: 45%;
 }

@@ -8,12 +8,13 @@ import Ram from './Ram';
 import Screen from './Screen';
 import CRTScreen from './Screen/CRTScreen';
 import KeyboardController from './Controller/Keyboard';
+import OnScreenController from './Controller/OnScreen';
 import exampleCartridge from './exampleCartridges/jelpi.p8.png';
 
 const machine = new JSGS({
   os: new OS(),
   devices: {
-    controller: new KeyboardController(),
+    controller: new OnScreenController(),
     ram: new Ram(0x8000),
     cartridge: exampleCartridge,
     screens: [

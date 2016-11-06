@@ -40,8 +40,6 @@ export default class Screen {
     canvas.width = canvas.height = size;
 
     canvas.style.dispay = 'block';
-    canvas.style.width = `${size}px`;
-    canvas.style.height = `${size}px`;
     canvas.style.imageRendering = 'pixelated';
 
     return canvas;
