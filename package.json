@@ -1,0 +1,30 @@
+{
+  "name": "JSGS",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Burak Can",
+  "license": "MIT",
+  "repository": "https://gitlab.com/burakcan/jsgs.git",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && NODE_ENV=production node ./utils/build",
+    "start-dev": "NODE_ENV=development node ./utils/build"
+  },
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "connect-history-api-fallback": "^1.3.0",
+    "css-loader": "^0.25.0",
+    "express": "^4.14.0",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.24.1",
+    "normalize.css": "^5.0.0",
+    "rimraf": "^2.5.4",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.1",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony",
+    "webpack": "2.1.0-beta.25",
+    "webpack-dev-middleware": "^1.8.4"
+  }
+}
