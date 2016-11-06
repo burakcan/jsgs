@@ -1,7 +1,6 @@
 import getGraphicsFunctions from './graphics.lib';
 import getSoundFunctions from './sound.lib';
 import mathLib from './math.lib';
-import inputLib from './input.lib';
 import readCartridge from './readCartridge.lib';
 import exampleCode from '../exampleCartridges/exampleCode';
 
@@ -34,15 +33,14 @@ export default class OS {
 
   boot(machine) {
     if (this.bootProgress) return this.bootProgress;
-
     this.bootProgress = new Promise(resolve => {
       this.$ = Object.assign(
         this.$,
-        machine.devices.ram,
+        machine.devices.ram.api,
         mathLib,
         getGraphicsFunctions(machine.devices.ram),
         getSoundFunctions(machine.devices.ram),
-        inputLib,
+        machine.devices.controller.api,
       );
 
       // flush defaults to ram

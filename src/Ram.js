@@ -2,14 +2,17 @@ export default class Ram {
   constructor(size) {
     this.size = size;
     this.arr = new Uint8Array(size);
-    this.peek = this.peek.bind(this);
-    this.poke = this.poke.bind(this);
-    this.memset = this.memset.bind(this);
-    this.memcpy = this.memcpy.bind(this);
-    this.memread = this.memread.bind(this);
-    this.memwrite = this.memwrite.bind(this);
-    this.reload = this.reload.bind(this);
-    this.cstore = this.cstore.bind(this);
+
+    this.api = {
+      peek: this.peek.bind(this),
+      poke: this.poke.bind(this),
+      memset: this.memset.bind(this),
+      memcpy: this.memcpy.bind(this),
+      memread: this.memread.bind(this),
+      memwrite: this.memwrite.bind(this),
+      reload: this.reload.bind(this),
+      cstore: this.cstore.bind(this),
+    };
   }
 
   ifInRange(addr, fn) {
@@ -39,14 +42,14 @@ export default class Ram {
   memwrite(dest_addr, data) {
     const length = data.length - 1;
     for (let i = 0; i <= length; i++) {
-      this.poke(dest_addr + i, data[i]);
+      this.arr[dest_addr + i] = data[i];
     }
   }
 
   memcpy(dest_addr, source_addr, length) {
     length = length - 1;
     for (let i = 0; i <= length; i++) {
-      this.poke(dest_addr + i, this.peek(source_addr + i));
+      this.arr[dest_addr + i] = this.arr[source_addr + i];
     }
   }
 
