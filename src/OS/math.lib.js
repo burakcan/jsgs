@@ -3,6 +3,10 @@ export default {
     return Math.random() * x;
   },
 
+  sgn(x) {
+    return (x < 0) ? -1 : 1;
+  },
+
   max: Math.max,
 
   min: Math.min,

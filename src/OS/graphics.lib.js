@@ -136,7 +136,7 @@ export default function getGraphicsFunctions(ram) {
     line(x1, y2, x2, y2, colorIndex);
   }
 
-  function rectFill(x1, y1, x2, y2, colorIndex) {
+  function rectfill(x1, y1, x2, y2, colorIndex) {
     if (colorIndex === undefined) {
       colorIndex = ram.peek(0x5f25);
     }
@@ -181,7 +181,7 @@ export default function getGraphicsFunctions(ram) {
     }
   }
 
-  function circFill(x0, y0, radius, colorIndex) {
+  function circfill(x0, y0, radius, colorIndex) {
     let x = radius - 1;
     let y = 0;
     let radiusError = 1 - x;
@@ -218,6 +218,9 @@ export default function getGraphicsFunctions(ram) {
   }
 
   function mget(celX, celY) {
+    celX = Math.round(celX);
+    celY = Math.round(celY);
+
     let mapStartAddr = 0x2000; // Map (rows 0-31)
 
     if (celY >= 32) {
@@ -325,7 +328,7 @@ export default function getGraphicsFunctions(ram) {
     ram.poke(addr, parseInt(colorStr, 16));
   }
 
-  function print(text, x, y, colorIndex) {
+  function print(text, x = 0, y = 0, colorIndex) {
     x = Math.floor(x);
     y = Math.floor(y);
     text = String(text);
@@ -369,7 +372,7 @@ export default function getGraphicsFunctions(ram) {
     }
 
     const drawPalette = ram.memread(startAddr, 16);
-    drawPalette[c1] = drawPalette[c2];
+    drawPalette[c1] = initialColors[c2];
     ram.memwrite(startAddr, drawPalette);
   }
 
@@ -489,6 +492,10 @@ export default function getGraphicsFunctions(ram) {
     }
   }
 
+  function stat() {
+    return '';
+  }
+
   ram.memwrite(0x5000, initialColors); // load initial draw palette to ram
   ram.memwrite(0x5f10, initialColors); // load initial screen palette to ram
   palt(0, true);
@@ -505,9 +512,9 @@ export default function getGraphicsFunctions(ram) {
     pset,
     line,
     rect,
-    rectFill,
+    rectfill,
     circ,
-    circFill,
+    circfill,
     spr,
     sget,
     sset,
@@ -517,5 +524,6 @@ export default function getGraphicsFunctions(ram) {
     map,
     mget,
     mset,
+    stat,
   };
 }

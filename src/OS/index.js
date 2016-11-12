@@ -3,7 +3,9 @@ import getSoundFunctions from './sound.lib';
 import mathLib from './math.lib';
 import readCartridge from './readCartridge.lib';
 import exampleCode from '../exampleCartridges/exampleCode';
-
+import lua2js from 'lua2js';
+import escodegen from 'escodegen';
+import estraverse from 'estraverse';
 export default class OS {
   constructor(machine) {
     this.$ = {};
@@ -36,6 +38,7 @@ export default class OS {
     this.bootProgress = new Promise(resolve => {
       this.$ = Object.assign(
         this.$,
+        lua2js.stdlib,
         machine.devices.ram.api,
         mathLib,
         getGraphicsFunctions(machine.devices.ram),
@@ -47,7 +50,7 @@ export default class OS {
       this.$.clip();
       this.$.color(6);
 
-      // return resolve(this); // DEVELOPMENT
+      return resolve(this); // DEVELOPMENT
 
       let i = 1;
 
@@ -128,38 +131,40 @@ export default class OS {
 
     const ____self____ = this;
     const ____api____ = Object.keys(this.$).map(key => {
-      return `
-        function ${ key }() {
-          return ____self____.$['${key}'].apply(null, arguments);
-        }
-      `;
+      if (typeof ____self____.$[key] === 'function') {
+        return `
+          function ${ key }() {
+            return ____self____.$['${key}'].apply(null, arguments);
+          }
+        `;
+      }
+      return '';
     });
 
-    ____cartridgeData____.code = exampleCode;
+    ____api____.push(`var __lua = ____self____.$.__lua`);
 
-    // try {
-      /*h*/eval(`
-        (function(${____BLACKLIST____}) {
-          ${ ____api____.join(';') }
+    /*h*/eval(`
+      (function(${____BLACKLIST____}) {
+        ${ ____api____.join(';') }
 
-          function _init() {}
-          function _update() {}
-          function _draw() {}
+        function _init() {}
+        function _update() {}
+        function _draw() {}
 
-          ${ ____cartridgeData____.code }
+        function add(__$table, __$item) {
+          __$table[Object.keys(__$table).length] = __$item;
+        }
 
-          _init()
-          _update();
-          _draw();
+        ${ this.transpileLua(____cartridgeData____.code) }
 
-          ____self____._draw = _draw;
-          ____self____._update = _update;
-        })();
-       `);
-    // } catch (e) {
-    //   this.$.print(e.message, 2, 10, 7);
-    //   console.error(e);
-    // }
+        _init()
+        _update();
+        _draw();
+
+        ____self____._draw = _draw;
+        ____self____._update = _update;
+      })();
+     `);
   }
 
   _update() {}
@@ -168,5 +173,36 @@ export default class OS {
   update() {
     this._update();
     this._draw();
+  }
+
+  transpileLua(code) {
+    const ast = lua2js.parse(code, {
+      decorateLuaObjects: false,
+      encloseWithFunctions: false,
+      forceVar: false,
+      luaCalls: false,
+      luaOperators: false,
+      noSharedObjects: false,
+      allowRegularFunctions: true,
+    });
+
+    const result = escodegen.generate(ast);
+    const globalVars = [];
+
+    estraverse.traverse(ast, {
+      enter(node, parent) {
+        if (node.type === "AssignmentExpression" &&
+            node.left.name &&
+            !globalVars.includes(node.left.name)
+        ) {
+          globalVars.push(node.left.name);
+        }
+      },
+    });
+
+    return `
+      var ${globalVars.join()};
+      ${result.substring(1, result.length - 1)}
+    `;
   }
 }

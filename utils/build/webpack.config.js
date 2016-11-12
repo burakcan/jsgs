@@ -17,6 +17,9 @@ const config = {
     }, {
       test: /\.png/,
       loader: 'file',
+    }, {
+      test: /\.json/,
+      loader: 'json',
     }],
   },
 
