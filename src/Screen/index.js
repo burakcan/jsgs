@@ -6,8 +6,6 @@ export default class Screen {
     this.palette = options.palette || this.constructor.defaultPalette;
     this.canvas = this.createCanvas(options);
     this.ctx = this.canvas.getContext('2d');
-
-    this.mountCanvas(options);
   }
 
   update(ram) {
@@ -45,7 +43,7 @@ export default class Screen {
     return canvas;
   }
 
-  mountCanvas({ element }) {
+  mountCanvas(element) {
     element.appendChild(this.canvas);
   }
 }

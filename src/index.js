@@ -11,17 +11,21 @@ import KeyboardController from './Controller/Keyboard';
 import OnScreenController from './Controller/OnScreen';
 import exampleCartridge from './exampleCartridges/zengarden.p8.png';
 
+const screen = new Screen({ size: 128 });
+const ram = new Ram(0x8000);
+const controller = new KeyboardController();
+const os = new OS();
+
 const machine = new JSGS({
-  os: new OS(),
+  os: os,
   devices: {
-    controller: new OnScreenController(),
-    ram: new Ram(0x8000),
+    controller: controller,
+    ram: ram,
     cartridge: exampleCartridge,
-    screens: [
-      new Screen({
-        element: document.getElementById('screen'),
-        size: 512,
-      }),
-    ],
+    screens: [screen],
   },
 });
+
+screen.mountCanvas(
+  document.getElementById('screen')
+);

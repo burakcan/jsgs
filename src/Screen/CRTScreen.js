@@ -17,7 +17,7 @@ export default class CRTScreen extends Screen {
     return canvas;
   }
 
-  mountCanvas({ element }) {
+  mountCanvas(element) {
     element.appendChild(this.glCanvas);
   }
 
