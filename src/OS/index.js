@@ -9,6 +9,7 @@ import estraverse from 'estraverse';
 export default class OS {
   constructor(machine) {
     this.$ = {};
+    this.bootTime = 0;
   }
 
   sendEvent(type, machine, payload) {
@@ -44,19 +45,21 @@ export default class OS {
         getGraphicsFunctions(machine.devices.ram),
         getSoundFunctions(machine.devices.ram),
         machine.devices.controller.api,
+        { time: this.getUptime.bind(this) }
       );
 
       // flush defaults to ram
       this.$.clip();
       this.$.color(6);
 
-      return resolve(this); // DEVELOPMENT
+      // return resolve(this); // DEVELOPMENT
 
       let i = 1;
 
       const loadingAnim = setInterval(() => {
         this.$.cls();
         if (i >= 98) {
+          this.bootTime = Date.now();
           clearInterval(loadingAnim);
           resolve(this);
         } else {
@@ -155,7 +158,13 @@ export default class OS {
           __$table[Object.keys(__$table).length] = __$item;
         }
 
-        ${ this.transpileLua(____cartridgeData____.code) }
+        function all(what) {
+          return [() => {}, () => {}, () => {}];
+        }
+
+        function menuitem() {}
+
+        ${ this.transpileLua(____cartridgeData____.code).replace('~=', '!=') }
 
         _init()
         _update();
@@ -204,5 +213,9 @@ export default class OS {
       var ${globalVars.join()};
       ${result.substring(1, result.length - 1)}
     `;
+  }
+
+  getUptime() {
+    return Date.now() - this.bootTime;
   }
 }

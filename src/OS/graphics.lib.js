@@ -218,8 +218,8 @@ export default function getGraphicsFunctions(ram) {
   }
 
   function mget(celX, celY) {
-    celX = Math.round(celX);
-    celY = Math.round(celY);
+    celX = Math.floor(celX);
+    celY = Math.floor(celY);
 
     let mapStartAddr = 0x2000; // Map (rows 0-31)
 

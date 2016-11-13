@@ -9,7 +9,7 @@ import Screen from './Screen';
 import CRTScreen from './Screen/CRTScreen';
 import KeyboardController from './Controller/Keyboard';
 import OnScreenController from './Controller/OnScreen';
-import exampleCartridge from './exampleCartridges/cast.p8.png';
+import exampleCartridge from './exampleCartridges/zengarden.p8.png';
 
 const machine = new JSGS({
   os: new OS(),
@@ -18,7 +18,7 @@ const machine = new JSGS({
     ram: new Ram(0x8000),
     cartridge: exampleCartridge,
     screens: [
-      new CRTScreen({
+      new Screen({
         element: document.getElementById('screen'),
         size: 512,
       }),
