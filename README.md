@@ -35,6 +35,44 @@ It's not yet packaged to be used by importing into your project. For now, the on
 is manually editing the cartridge url in `src/index.js` file. For cloning/installing/running the project, see
 "Development" section below.
 
+#### Classes / Options
+###### JSGS
+The JSGS class is the class which we use for creating pico-8 machine instances. 
+```javascript
+const machine = new JSGS({
+  os: new OS(), // an "OS" instance
+  devices: {
+    controller: new KeyboardController(), // a "Controller" instance
+    ram: new Ram(0x8000), // a "Ram" instance
+    cartridge: "http://example.com/cartridge.p8.png", // url to a p8.png cartridge
+    screen: [new Screen({ size: 128 })], // An array of "Screen" instances
+  },
+});
+```
+  
+###### Ram
+```javascipt
+// instantiate a 32kb ram
+const ram = new Ram(0x8000);
+```
+
+###### Screen / CRTScreen
+```javascript
+const screen = new Screen({
+  size: 128, // a px size (number)
+  palette: Screen.greenPalette // And array of 16 hex colors. Defaults to pico-8 palette
+});
+
+// Screen with crt filter
+const crtScreen = new CRTScreen({
+  size: 128,
+});
+
+// Mount to dom
+screen.mountCanvas(element);
+crtScreen.mountCanvas(element);
+```
+
 ## Development
 ### Requirements
 For development, you will need [Node.js](http://nodejs.org/) >=6.0.0 and NPM(comes bundled with Node.js) installed on your environment.
