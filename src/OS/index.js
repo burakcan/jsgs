@@ -6,6 +6,9 @@ import exampleCode from '../exampleCartridges/exampleCode';
 import lua2js from 'lua2js';
 import escodegen from 'escodegen';
 import estraverse from 'estraverse';
+
+window.lua2js = lua2js;
+
 export default class OS {
   constructor(machine) {
     this.$ = {};
@@ -154,12 +157,17 @@ export default class OS {
         function _update() {}
         function _draw() {}
 
-        function add(__$table, __$item) {
-          __$table[Object.keys(__$table).length] = __$item;
+        function add(tbl, item) {
+          console.log(tbl, item);
+          tbl[Object.keys(tbl).length] = item;
         }
 
-        function all(what) {
+        function all() {
           return [() => {}, () => {}, () => {}];
+        }
+
+        function count(tbl) {
+          return Object.keys(tbl).length;
         }
 
         function menuitem() {}
