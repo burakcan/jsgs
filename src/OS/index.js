@@ -169,7 +169,7 @@ export default class OS {
 
         function menuitem() {}
 
-        print("JSGS", 20, 20, 8);
+        ${ this.transpileLua(____cartridgeData____.code).replace('~=', '!=') }
 
         _init()
         _update();

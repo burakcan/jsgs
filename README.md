@@ -1,8 +1,6 @@
+![](https://s15.postimg.org/f8msaljij/Screen_Shot_2016_11_13_at_18_44_52.png)
 
-[JSGS](https://postimg.org/image/tf2j5tudj/)
-
-# JSGS [WIP]
-JSGS is an experimental javascript implementation of the Pico-8 fantasy console.
+JSGS is an experimental (WIP) javascript implementation of the Pico-8 fantasy console.
 
 #### Demos
 - [http://hello-world-p8.bitballoon.com/](http://hello-world-p8.bitballoon.com/)
