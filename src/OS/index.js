@@ -2,12 +2,9 @@ import getGraphicsFunctions from './graphics.lib';
 import getSoundFunctions from './sound.lib';
 import mathLib from './math.lib';
 import readCartridge from './readCartridge.lib';
-import exampleCode from '../exampleCartridges/exampleCode';
 import lua2js from 'lua2js';
 import escodegen from 'escodegen';
 import estraverse from 'estraverse';
-
-window.lua2js = lua2js;
 
 export default class OS {
   constructor(machine) {
@@ -172,7 +169,7 @@ export default class OS {
 
         function menuitem() {}
 
-        ${ this.transpileLua(____cartridgeData____.code).replace('~=', '!=') }
+        print("JSGS", 20, 20, 8);
 
         _init()
         _update();

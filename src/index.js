@@ -9,7 +9,7 @@ import Screen from './Screen';
 import CRTScreen from './Screen/CRTScreen';
 import KeyboardController from './Controller/Keyboard';
 import OnScreenController from './Controller/OnScreen';
-import exampleCartridge from './exampleCartridges/zengarden.p8.png';
+import exampleCartridge from './exampleCartridges/hello.p8.png';
 
 const screen = new Screen({ size: 128 });
 const ram = new Ram(0x8000);
