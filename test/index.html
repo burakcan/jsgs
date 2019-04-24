@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JSGS</title>
+  <!--
+         _______________
+     __ / / __/ ___/ __/
+    / // /\ \/ (_ /\ \
+    \___/___/\___/___/
+   -->
+</head>
+
+<body>
+  <div id="layout" class="desktop">
+    <div id="screen" style="text-align: center;"></div>
+  </div>
+  <script src="../dist/libjsgs.js"></script>
+  <script>
+    {
+      var screen = new libjsgs.Screen({
+        size: 128
+      });
+      var ram = new libjsgs.Ram(0x8000);
+      var controller = new libjsgs.KeyboardController();
+      var os = new libjsgs.OS();
+
+      var machine = new libjsgs.JSGS({
+        os: os,
+        devices: {
+          controller: controller,
+          ram: ram,
+          cartridge: "../src/exampleCartridges/hello.p8.png",
+          screens: [screen],
+        },
+      });
+
+      screen.mountCanvas(document.getElementById('screen'));
+    }
+  </script>
+</body>
+
+</html>

@@ -24,24 +24,20 @@ const config = {
   },
 
   entry: {
-    main: path.join(srcPath, '/index.js'),
+    libjsgs: path.join(srcPath, '/index.js'),
   },
 
   output: {
     path: outPath,
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: './',
+    libraryTarget: 'window',
+    library: 'libjsgs',
   },
 
   resolve: {},
 
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(srcPath, 'index.html'),
-      filename: 'index.html',
-      inject: 'body',
-      chunks: ['main'],
-    }),
   ],
 
   externals: [],
