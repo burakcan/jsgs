@@ -5,7 +5,6 @@ import 'script!./vendor/glfx';
 
 import KeyboardController from './Controller/Keyboard';
 import OnScreenController from './Controller/OnScreen';
-import exampleCartridge from './exampleCartridges/hello.p8.png';
 import JSGS from './JSGS';
 import OS from './OS';
 import Ram from './Ram';
