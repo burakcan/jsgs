@@ -1,5 +1,3 @@
-import 'normalize.css';
-import './style.css';
 import 'script!./vendor/pngtoy';
 import 'script!./vendor/glfx';
 
