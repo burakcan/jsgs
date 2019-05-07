@@ -1,37 +1,58 @@
 export default class JSGS {
-  constructor(options) {
-    this.devices = options.devices;
-    this.os = options.os;
+    constructor(options) {
+        this.devices = options.devices;
+        this.os = options.os;
 
-    this.os
-      .sendEvent('boot', this)
-      .sendEvent('cartridgeMount', this);
+        this.os.sendEvent('boot', this).sendEvent('cartridgeMount', this);
 
-    this.updateLoop(() => {
-      this.os.update();
-      this.devices.screens.forEach(
-        screen => screen.update(this.devices.ram)
-      );
-    });
-  }
+        // this.updateLoop(() => {
+        //   this.os.update();
+        //   this.devices.screens.forEach(
+        //     screen => screen.update(this.devices.ram)
+        //   );
+        // });
+        //
 
-  updateLoop(fn, fps) {
-    fn();
+        this.then = Date.now();
+    }
 
-    let then = Date.now();
-    fps = fps || 30;
-    const interval = 1000 / fps;
-
-    return (function loop(time){
-      requestAnimationFrame(loop);
-
-      const now = Date.now();
-      const delta = now - then;
-
-      if (delta > interval) {
-        then = now - (delta % interval);
+    updateLoop(fn, fps) {
         fn();
-      }
-    }(0));
-  }
+
+        let then = Date.now();
+        fps = fps || 30;
+        const interval = 1000 / fps;
+
+        return (function loop(time) {
+            requestAnimationFrame(loop);
+
+            const now = Date.now();
+            const delta = now - then;
+
+            if (delta > interval) {
+                then = now - (delta % interval);
+                fn();
+            }
+        }(0));
+    }
+
+    update() {
+        const fps = 30;
+        const interval = 1000 / fps;
+
+        const now = Date.now();
+        const delta = now - this.then;
+
+        if (delta > interval) {
+            this.os.update();
+            this.devices.screens.forEach(screen => screen.update(this.devices.ram));
+
+            this.then = now - (delta % interval);
+
+            return true;
+        }
+
+        return false;
+    }
 }
+
