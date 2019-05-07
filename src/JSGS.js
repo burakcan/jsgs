@@ -45,7 +45,7 @@ export default class JSGS {
 
         if (delta > interval) {
             this.os.update();
-            this.devices.screens.forEach(screen => screen.update(this.devices.ram));
+            // this.devices.screens.forEach(screen => screen.update(this.devices.ram));
 
             this.then = now - (delta % interval);
 

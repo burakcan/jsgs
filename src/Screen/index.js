@@ -33,6 +33,34 @@ export default class Screen {
     };
   }
 
+  fillArray(ram, dest) {
+    for (let addr = 0x6000; addr <= 0x7FFF; addr++) {
+      const data = ram.arr[addr];
+      const dataBinary = ("000000000" + data.toString(2)).substr(-8);
+      const [color1, color2] = [
+        this.constructor.defaultPaletteInt[
+          parseInt(dataBinary.substring(0, 4), 2)
+        ],
+        this.constructor.defaultPaletteInt[
+          parseInt(dataBinary.substring(4, 8), 2)
+        ],
+      ];
+
+      const i = addr - 0x6000;
+      const x = (i * 2) % 128;
+      const y = 128 - Math.floor(i / 64);
+
+      dest[y * 128 * 4 + x * 4 + 0] = (color1 >> 8) & 255;
+      dest[y * 128 * 4 + x * 4 + 1] = (color1 >> 4) & 255;
+      dest[y * 128 * 4 + x * 4 + 2] = (color1 >> 0) & 255;
+
+      const w = x + 1;
+      dest[y * 128 * 4 + w * 4 + 0] = (color2 >> 8) & 255;
+      dest[y * 128 * 4 + w * 4 + 1] = (color2 >> 4) & 255;
+      dest[y * 128 * 4 + w * 4 + 2] = (color2 >> 0) & 255;
+    };
+  }
+
   createCanvas({ element, size }) {
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = size;
@@ -69,12 +97,18 @@ Screen.utils.rgbToHex = function({r, g, b}) {
   return "#" + Screen.utils.componentToHex(r) + Screen.utils.componentToHex(g) + Screen.utils.componentToHex(b);
 }
 
-
 Screen.defaultPalette = [
   '#000000', '#1D2B53', '#7E2553', '#008751',
   '#AB5236', '#5F574F', '#C2C3C7', '#FFF1E8',
   '#FF004D', '#FFA300', '#FFEC27', '#00E436',
   '#29ADFF', '#83769C', '#FF77A8', '#FFCCAA',
+];
+
+Screen.defaultPaletteInt = [
+  0x000000, 0x1D2B53, 0x7E2553, 0x008751,
+  0xAB5236, 0x5F574F, 0xC2C3C7, 0xFFF1E8,
+  0xFF004D, 0xFFA300, 0xFFEC27, 0x00E436,
+  0x29ADFF, 0x83769C, 0xFF77A8, 0xFFCCAA,
 ];
 
 Screen.grayscalePalette = Screen.defaultPalette.map(color => {
