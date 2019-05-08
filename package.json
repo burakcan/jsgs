@@ -8,6 +8,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && NODE_ENV=production node ./utils/build",
+    "build-dev": "npm run clean && NODE_ENV=development node ./utils/build",
     "start-dev": "NODE_ENV=development node ./utils/build"
   },
   "dependencies": {

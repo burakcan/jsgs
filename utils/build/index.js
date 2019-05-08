@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV;
 
 switch (NODE_ENV) {
-  case 'development': {
-    return require('./dev.server')();
-  }
+  // case 'development': {
+  //   return require('./dev.server')();
+  // }
 
   default: { // production
     const config = require('./webpack.config.js');
