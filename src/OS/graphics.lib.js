@@ -55,8 +55,14 @@ export default function getGraphicsFunctions(ram) {
   }
 
   function pset(x, y, colorIndex, color8) {
-    const [camX, camY] = _getCamera();
-    const [cx1, cy1, cx2, cy2] = _getClip();
+    const xSign = ram.arr[0x5f28] === 1 ? -1 : 1;
+    const ySign = ram.arr[0x5f2a] === 1 ? -1 : 1;
+    const camX = ram.arr[0x5f29] * xSign;
+    const camY = ram.arr[0x5f2b] * ySign;
+    const cx1 = ram.arr[0x5f20];
+    const cy1 = ram.arr[0x5f21];
+    const cx2 = ram.arr[0x5f22];
+    const cy2 = ram.arr[0x5f23];
 
     x = Math.floor(x + camX);
     y = Math.floor(y + camY);
@@ -68,16 +74,14 @@ export default function getGraphicsFunctions(ram) {
       return false;
     }
 
-    const drawPalette = ram.memread(0x5000, 16);
-
     if (colorIndex === undefined) {
       colorIndex = ram.arr[0x5f25]; // default color: color()
     }
 
     if (!color8) {
-      color8 = drawPalette[colorIndex % 16];
+      color8 = ram.arr[0x5000 + colorIndex % 16];
     } else {
-      color8 = drawPalette[initialColors.indexOf(color8)];
+      color8 = ram.arr[0x5000 + initialColors.indexOf(color8)];
     }
 
     const addr = 0x6000 + (64 * y) + Math.floor(x / 2);
@@ -250,7 +254,6 @@ export default function getGraphicsFunctions(ram) {
     const sx = (n % 16) * 4;
     const sy = Math.floor(n / 16) * 8;
     const startAddr = 0x0000 + sx + (sy * 64);
-    const drawPalette = ram.memread(0x5000, 16);
 
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j=j+2) {
@@ -265,7 +268,7 @@ export default function getGraphicsFunctions(ram) {
         const val_a = (val >> 4) & 15;
         const val_b = (val) & 15;
 
-        if ((drawPalette[val_a] & 15) == 0) {
+        if ((ram.arr[0x5000 + val_a] & 15) == 0) {
           pset(
             x1,
             y1,
@@ -274,7 +277,7 @@ export default function getGraphicsFunctions(ram) {
           );
         }
 
-        if ((drawPalette[val_b] & 15) == 0) {
+        if ((ram.arr[0x5000 + val_b] & 15) == 0) {
           pset(
             x2,
             y2,
