@@ -49,17 +49,10 @@ export default class Screen {
       const i = addr - 0x6000;
       const x = (i * 2) % 128;
       const y = 128 - Math.floor(i / 64);
-
-      dest[y * 128 * 4 + x * 4 + 0] = (color1 >> 16) & 255;
-      dest[y * 128 * 4 + x * 4 + 1] = (color1 >> 8) & 255;
-      dest[y * 128 * 4 + x * 4 + 2] = (color1 >> 0) & 255;
-      dest[y * 128 * 4 + x * 4 + 3] = 255;
-
       const w = x + 1;
-      dest[y * 128 * 4 + w * 4 + 0] = (color2 >> 16) & 255;
-      dest[y * 128 * 4 + w * 4 + 1] = (color2 >> 8) & 255;
-      dest[y * 128 * 4 + w * 4 + 2] = (color2 >> 0) & 255;
-      dest[y * 128 * 4 + w * 4 + 3] = 255;
+
+      dest[y * 128 + x] = color1;
+      dest[y * 128 + w] = color2;
     };
   }
 
