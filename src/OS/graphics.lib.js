@@ -74,8 +74,6 @@ export default function getGraphicsFunctions(ram) {
       colorIndex = ram.arr[0x5f25]; // default color: color()
     }
 
-    let colorStr;
-
     if (!color8) {
       color8 = drawPalette[colorIndex % 16];
     } else {
@@ -84,15 +82,14 @@ export default function getGraphicsFunctions(ram) {
 
     const addr = 0x6000 + (64 * y) + Math.floor(x / 2);
     const beforePoke = color8toHexStr(ram.arr[addr]);
-    const side = x % 2 === 0 ? 'left' : 'right';
+    const before = ram.arr[addr] & 255;
+    const left_side = x % 2 === 0 ? true : false;
 
-    if (side === 'left') {
-      colorStr = color8toHexStr(color8)[0] + beforePoke[1];
-    } else if (side === 'right') {
-      colorStr = beforePoke[0] + color8toHexStr(color8)[0];
+    if (left_side) {
+      ram.arr[addr] = (color8 & 0b11110000) | (before & 0b1111);
+    } else {
+      ram.arr[addr] = (before & 0b11110000) | ((color8 & 0b11110000) >> 4);
     }
-
-    ram.arr[addr] = parseInt(colorStr, 16);
   }
 
   function cls() {
