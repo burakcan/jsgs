@@ -259,7 +259,6 @@ export default function getGraphicsFunctions(ram) {
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j=j+2) {
         const val = ram.arr[startAddr + (64 * i) + j / 2];
-        const str = color8toHexStr(val);
 
         let x1 = flip_x ? x - j + 7 : x + j;
         let x2 = flip_x ? x - j + 6 : x + j + 1;
@@ -270,21 +269,21 @@ export default function getGraphicsFunctions(ram) {
         const val_a = (val >> 4) & 15;
         const val_b = (val) & 15;
 
-        if (color8toHexStr(drawPalette[val_a])[1] === "0") {
+        if ((drawPalette[val_a] & 15) == 0) {
           pset(
             x1,
             y1,
             null,
-            parseInt(str[0] + '0', 16)
+            val_a << 4
           );
         }
 
-        if (color8toHexStr(drawPalette[val_b])[1] === "0") {
+        if ((drawPalette[val_b] & 15) == 0) {
           pset(
             x2,
             y2,
             null,
-            parseInt(str[1] + '0', 16)
+            val_b << 4
           );
         }
       }
