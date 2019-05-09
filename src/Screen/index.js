@@ -99,11 +99,19 @@ Screen.defaultPalette = [
   '#29ADFF', '#83769C', '#FF77A8', '#FFCCAA',
 ];
 
+Screen.utils.rgbToBgr= function(v) {
+  let b = v & 255;
+  let g = (v >> 8) & 255;
+  let r = (v >> 16) & 255;
+
+  return r | (g << 8) | (b << 16);
+}
+
 Screen.defaultPaletteInt = [
-  0x000000, 0x1D2B53, 0x7E2553, 0x008751,
-  0xAB5236, 0x5F574F, 0xC2C3C7, 0xFFF1E8,
-  0xFF004D, 0xFFA300, 0xFFEC27, 0x00E436,
-  0x29ADFF, 0x83769C, 0xFF77A8, 0xFFCCAA,
+  Screen.utils.rgbToBgr(0x000000), Screen.utils.rgbToBgr(0x1D2B53), Screen.utils.rgbToBgr(0x7E2553), Screen.utils.rgbToBgr(0x008751),
+  Screen.utils.rgbToBgr(0xAB5236), Screen.utils.rgbToBgr(0x5F574F), Screen.utils.rgbToBgr(0xC2C3C7), Screen.utils.rgbToBgr(0xFFF1E8),
+  Screen.utils.rgbToBgr(0xFF004D), Screen.utils.rgbToBgr(0xFFA300), Screen.utils.rgbToBgr(0xFFEC27), Screen.utils.rgbToBgr(0x00E436),
+  Screen.utils.rgbToBgr(0x29ADFF), Screen.utils.rgbToBgr(0x83769C), Screen.utils.rgbToBgr(0xFF77A8), Screen.utils.rgbToBgr(0xFFCCAA),
 ];
 
 Screen.grayscalePalette = Screen.defaultPalette.map(color => {
