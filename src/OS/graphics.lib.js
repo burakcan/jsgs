@@ -81,7 +81,6 @@ export default function getGraphicsFunctions(ram) {
     }
 
     const addr = 0x6000 + (64 * y) + Math.floor(x / 2);
-    const beforePoke = color8toHexStr(ram.arr[addr]);
     const before = ram.arr[addr] & 255;
     const left_side = x % 2 === 0 ? true : false;
 

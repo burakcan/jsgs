@@ -36,13 +36,12 @@ export default class Screen {
   fillArray(ram, dest) {
     for (let addr = 0x6000; addr <= 0x7FFF; addr++) {
       const data = ram.arr[addr];
-      const dataBinary = ("000000000" + data.toString(2)).substr(-8);
       const [color1, color2] = [
         this.constructor.defaultPaletteInt[
-          parseInt(dataBinary.substring(0, 4), 2)
+          (data >> 4)
         ],
         this.constructor.defaultPaletteInt[
-          parseInt(dataBinary.substring(4, 8), 2)
+          (data) & 255
         ],
       ];
 
