@@ -267,7 +267,10 @@ export default function getGraphicsFunctions(ram) {
         let y1 = flip_y ? y - i + 7 : y + i;
         let y2 = y1;
 
-        if (color8toHexStr(drawPalette[parseInt(str[0], 16)])[1] === "0") {
+        const val_a = (val >> 4) & 15;
+        const val_b = (val) & 15;
+
+        if (color8toHexStr(drawPalette[val_a])[1] === "0") {
           pset(
             x1,
             y1,
@@ -276,7 +279,7 @@ export default function getGraphicsFunctions(ram) {
           );
         }
 
-        if (color8toHexStr(drawPalette[parseInt(str[1], 16)])[1] === "0") {
+        if (color8toHexStr(drawPalette[val_b])[1] === "0") {
           pset(
             x2,
             y2,
