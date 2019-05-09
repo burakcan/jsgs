@@ -41,7 +41,7 @@ export default class Screen {
           (data >> 4)
         ],
         this.constructor.defaultPaletteInt[
-          (data) & 255
+          (data & 15)
         ],
       ];
 
