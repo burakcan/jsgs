@@ -85,7 +85,7 @@ export default function getGraphicsFunctions(ram) {
     }
 
     const addr = 0x6000 + (64 * y) + Math.floor(x / 2);
-    const before = ram.arr[addr] & 255;
+    const before = ram.arr[addr];
     const left_side = x % 2 === 0 ? true : false;
 
     if (left_side) {
