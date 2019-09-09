@@ -2621,20 +2621,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var JSGS = function () {
     function JSGS(options) {
+        var _this = this;
+
         _classCallCheck(this, JSGS);
 
         this.devices = options.devices;
         this.os = options.os;
+        this.autoUpdate = options.autoUpdate;
 
         this.os.sendEvent('boot', this).sendEvent('cartridgeMount', this);
 
-        // this.updateLoop(() => {
-        //   this.os.update();
-        //   this.devices.screens.forEach(
-        //     screen => screen.update(this.devices.ram)
-        //   );
-        // });
-        //
+        if (this.autoUpdate) {
+            this.updateLoop(function () {
+                _this.os.update();
+                _this.devices.screens.forEach(function (screen) {
+                    return screen.update(_this.devices.ram);
+                });
+            });
+        }
 
         this.then = Date.now();
     }
@@ -2663,6 +2667,8 @@ var JSGS = function () {
     }, {
         key: 'update',
         value: function update() {
+            var _this2 = this;
+
             var fps = 30;
             var interval = 1000 / fps;
 
@@ -2671,7 +2677,12 @@ var JSGS = function () {
 
             if (delta > interval) {
                 this.os.update();
-                // this.devices.screens.forEach(screen => screen.update(this.devices.ram));
+
+                if (this.autoUpdate) {
+                    this.devices.screens.forEach(function (screen) {
+                        return screen.update(_this2.devices.ram);
+                    });
+                }
 
                 this.then = now - delta % interval;
 
