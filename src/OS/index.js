@@ -79,15 +79,21 @@ export default class OS {
   }
 
   cartridgeMount(machine) {
-    const { cartridge } = machine.devices;
+    const { code, cartridge } = machine.devices;
 
-    this.$.print("reading cartridge", 4, 4, 7);
+    if(code != null) {
+      this.$.print("running code", 4, 4, 7);
+      setTimeout(() => this.runCartridge(code), 500)
+    } else {
 
-    this
-      .loadCartridge(cartridge, machine)
-      .then(cartridgeData =>
-        setTimeout(() => this.runCartridge(cartridgeData), 500)
-      );
+      this.$.print("reading cartridge", 4, 4, 7);
+
+      this
+        .loadCartridge(cartridge, machine)
+        .then(cartridgeData =>
+          setTimeout(() => this.runCartridge(cartridgeData), 500)
+        );
+    }
   }
 
   cartridgeEject(machine) {

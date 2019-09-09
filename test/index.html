@@ -21,6 +21,7 @@
 <body>
   <div id="screen" style="text-align: center;"></div>
   <div id="screen2" style="text-align: center;"></div>
+  <div id="screen3" style="text-align: center;"></div>
   <script src="../dist/libjsgs.js"></script>
   <script>
     {
@@ -42,7 +43,8 @@
       });
 
       screen.mountCanvas(document.getElementById('screen'));
-    } {
+    }
+    {
       var screen = new libjsgs.Screen({
         size: 128
       });
@@ -61,6 +63,26 @@
       });
 
       screen.mountCanvas(document.getElementById('screen2'));
+    }
+    {
+      var screen = new libjsgs.Screen({
+        size: 128
+      });
+      var ram = new libjsgs.Ram(0x8000);
+      var controller = new libjsgs.KeyboardController();
+      var os = new libjsgs.OS();
+
+      var machine = new libjsgs.JSGS({
+        os: os,
+        devices: {
+          controller: controller,
+          ram: ram,
+          cartridge: "../src/exampleCartridges/cast.p8.png",
+          screens: [screen],
+        },
+      });
+
+      screen.mountCanvas(document.getElementById('screen3'));
     }
   </script>
 </body>
