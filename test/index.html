@@ -80,8 +80,10 @@
         devices: {
           controller: controller,
           ram: ram,
-          cartridge: "../src/exampleCartridges/cast.p8.png",
           screens: [screen],
+          code: `function _draw()
+            print('TROLOLO', 4, 4)
+          end `
         },
       });
 

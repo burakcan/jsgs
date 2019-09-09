@@ -2826,8 +2826,9 @@ var OS = function () {
 
       if (code != null) {
         this.$.print("running code", 4, 4, 7);
+        var obj = { code: code };
         setTimeout(function () {
-          return _this3.runCartridge(code);
+          return _this3.runCartridge(obj);
         }, 500);
       } else {
 

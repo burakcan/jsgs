@@ -83,7 +83,8 @@ export default class OS {
 
     if(code != null) {
       this.$.print("running code", 4, 4, 7);
-      setTimeout(() => this.runCartridge(code), 500)
+      let obj = {code:code};
+      setTimeout(() => this.runCartridge(obj), 500)
     } else {
 
       this.$.print("reading cartridge", 4, 4, 7);
