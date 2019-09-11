@@ -1,6 +1,13 @@
+var seed = 1;
+function random() {
+    var x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+
 export default {
   rnd(x) {
-    return Math.random() * x;
+    x = x || 1;
+    return random() * x;
   },
 
   sgn(x) {
@@ -18,11 +25,11 @@ export default {
   flr: Math.floor,
 
   cos(x) { // x = 0 - 1
-    return Math.cos((x * 360) * (3.1415/180));
+    return Math.cos((x * 2 * 3.1415));
   },
 
   sin(x) {
-    return Math.sin((-x * 360) * (3.1415/180));
+    return Math.sin((-x * 2 * 3.1415));
   },
 
   atan2: Math.atan2,
@@ -31,7 +38,10 @@ export default {
 
   abs: Math.abs,
 
-  srand(x) {},
+  srand(x) {
+    x = x || 0;
+    seed = 0;
+  },
 
   band(x, y) {
     return x & y;

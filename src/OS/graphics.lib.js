@@ -107,6 +107,8 @@ export default function getGraphicsFunctions(ram) {
 
     if (colorIndex === undefined) {
       colorIndex = ram.peek(0x5f25);
+    } else {
+      colorIndex = Math.floor(colorIndex);
     }
 
     let dx = Math.abs(x1-x0);
@@ -370,6 +372,10 @@ export default function getGraphicsFunctions(ram) {
 
     if (p === 1) {
       startAddr = 0x5f10;
+    }
+
+    if(c2 >= 128){
+      c2 -= 128;
     }
 
     const drawPalette = ram.memread(startAddr, 16);

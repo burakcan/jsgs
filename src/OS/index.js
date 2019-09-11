@@ -1,6 +1,7 @@
 import getGraphicsFunctions from './graphics.lib';
 import getSoundFunctions from './sound.lib';
 import mathLib from './math.lib';
+import coreLib from './core.lib';
 import readCartridge from './readCartridge.lib';
 import lua2js from 'lua2js';
 import escodegen from 'escodegen';
@@ -41,11 +42,15 @@ export default class OS {
         this.$,
         lua2js.stdlib,
         machine.devices.ram.api,
+        coreLib,
         mathLib,
         getGraphicsFunctions(machine.devices.ram),
         getSoundFunctions(machine.devices.ram),
         machine.devices.controller.api,
-        { time: this.getUptime.bind(this) }
+        {
+          time: this.getUptime.bind(this),
+          t:this.getUptime.bind(this)
+        }
       );
 
       // flush defaults to ram
@@ -72,7 +77,7 @@ export default class OS {
 
           i += parseInt(Math.random() * 2);
         }
-      }, 10);
+      }, 1);
     });
 
     return this.bootProgress;
@@ -228,6 +233,6 @@ export default class OS {
   }
 
   getUptime() {
-    return Date.now() - this.bootTime;
+    return (Date.now() - this.bootTime) / 1000;
   }
 }

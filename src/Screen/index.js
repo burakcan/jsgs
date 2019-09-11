@@ -96,6 +96,23 @@ Screen.defaultPalette = [
   '#AB5236', '#5F574F', '#C2C3C7', '#FFF1E8',
   '#FF004D', '#FFA300', '#FFEC27', '#00E436',
   '#29ADFF', '#83769C', '#FF77A8', '#FFCCAA',
+'#ffccaa',
+'#291814',
+'#111d35',
+'#422136',
+'#125359',
+'#742f29',
+'#49333b',
+'#a28879',
+'#f3ef7d',
+'#be1250',
+'#ff6c24',
+'#a8e72e',
+'#00b543',
+'#065ab5',
+'#754665',
+'#ff6e59',
+'#ff9d81'
 ];
 
 Screen.utils.rgbToBgr= function(v) {
@@ -106,12 +123,10 @@ Screen.utils.rgbToBgr= function(v) {
   return r | (g << 8) | (b << 16);
 }
 
-Screen.defaultPaletteInt = [
-  Screen.utils.rgbToBgr(0x000000), Screen.utils.rgbToBgr(0x1D2B53), Screen.utils.rgbToBgr(0x7E2553), Screen.utils.rgbToBgr(0x008751),
-  Screen.utils.rgbToBgr(0xAB5236), Screen.utils.rgbToBgr(0x5F574F), Screen.utils.rgbToBgr(0xC2C3C7), Screen.utils.rgbToBgr(0xFFF1E8),
-  Screen.utils.rgbToBgr(0xFF004D), Screen.utils.rgbToBgr(0xFFA300), Screen.utils.rgbToBgr(0xFFEC27), Screen.utils.rgbToBgr(0x00E436),
-  Screen.utils.rgbToBgr(0x29ADFF), Screen.utils.rgbToBgr(0x83769C), Screen.utils.rgbToBgr(0xFF77A8), Screen.utils.rgbToBgr(0xFFCCAA),
-];
+Screen.defaultPaletteInt = [];
+for(var i in Screen.defaultPalette) {
+  Screen.defaultPaletteInt.push(Screen.utils.rgbToBgr(Screen.defaultPalette[i]));
+}
 
 Screen.grayscalePalette = Screen.defaultPalette.map(color => {
   const { r, g, b } = Screen.utils.hexToRgb(color);

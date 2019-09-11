@@ -81,9 +81,30 @@
           controller: controller,
           ram: ram,
           screens: [screen],
-          code: `function _draw()
-            print('TROLOLO', 4, 4)
-          end `
+          code: `-- hello world
+-- by gogoprog
+
+for i=0,15 do 
+  pal(i,({129,1,131,3,139,11,138,135})[(i+1) ],0)
+end
+
+function _draw()
+  cls()
+  srand()
+  for z=14,48,0.8 do
+    for x=-3,3 do
+      for y=0,7 do
+        y = y + x/2
+        u=64+x*z+cos(z/40+t()/3+x/8)*z/8
+        v=80+((y+t()/4)%8-5)*z
+        a=rnd()
+        line(u,v,u+cos(a)*z/5,v+sin(a)*z/5,(z-7)/5.3)
+      end
+    end
+  end
+end
+
+`
         },
       });
 
