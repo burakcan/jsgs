@@ -2,16 +2,18 @@ export default class JSGS {
     constructor(options) {
         this.devices = options.devices;
         this.os = options.os;
+        this.autoUpdate = options.autoUpdate;
 
         this.os.sendEvent('boot', this).sendEvent('cartridgeMount', this);
 
-        // this.updateLoop(() => {
-        //   this.os.update();
-        //   this.devices.screens.forEach(
-        //     screen => screen.update(this.devices.ram)
-        //   );
-        // });
-        //
+        if (this.autoUpdate) {
+            this.updateLoop(() => {
+                this.os.update();
+                this.devices.screens.forEach(
+                    screen => screen.update(this.devices.ram)
+                );
+            });
+        }
 
         this.then = Date.now();
     }
@@ -45,7 +47,10 @@ export default class JSGS {
 
         if (delta > interval) {
             this.os.update();
-            // this.devices.screens.forEach(screen => screen.update(this.devices.ram));
+
+            if (this.autoUpdate) {
+                this.devices.screens.forEach(screen => screen.update(this.devices.ram));
+            }
 
             this.then = now - (delta % interval);
 
@@ -55,4 +60,3 @@ export default class JSGS {
         return false;
     }
 }
-

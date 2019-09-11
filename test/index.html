@@ -21,6 +21,7 @@
 <body>
   <div id="screen" style="text-align: center;"></div>
   <div id="screen2" style="text-align: center;"></div>
+  <div id="screen3" style="text-align: center;"></div>
   <script src="../dist/libjsgs.js"></script>
   <script>
     {
@@ -32,6 +33,7 @@
       var os = new libjsgs.OS();
 
       var machine = new libjsgs.JSGS({
+        autoUpdate: true,
         os: os,
         devices: {
           controller: controller,
@@ -42,7 +44,8 @@
       });
 
       screen.mountCanvas(document.getElementById('screen'));
-    } {
+    }
+    {
       var screen = new libjsgs.Screen({
         size: 128
       });
@@ -51,6 +54,7 @@
       var os = new libjsgs.OS();
 
       var machine = new libjsgs.JSGS({
+        autoUpdate: true,
         os: os,
         devices: {
           controller: controller,
@@ -61,6 +65,29 @@
       });
 
       screen.mountCanvas(document.getElementById('screen2'));
+    }
+    {
+      var screen = new libjsgs.Screen({
+        size: 128
+      });
+      var ram = new libjsgs.Ram(0x8000);
+      var controller = new libjsgs.KeyboardController();
+      var os = new libjsgs.OS();
+
+      var machine = new libjsgs.JSGS({
+        autoUpdate: true,
+        os: os,
+        devices: {
+          controller: controller,
+          ram: ram,
+          screens: [screen],
+          code: `function _draw()
+            print('TROLOLO', 4, 4)
+          end `
+        },
+      });
+
+      screen.mountCanvas(document.getElementById('screen3'));
     }
   </script>
 </body>
