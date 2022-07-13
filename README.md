@@ -7,7 +7,6 @@ JSGS is an experimental (WIP) javascript implementation of the Pico-8 fantasy co
 - [http://cast.netlify.com/](http://cast.netlify.com/)
 - [http://3dcamera.netlify.com/](http://3dcamera.netlify.com/)
 - [http://fireball.netlify.com/](http://fireball.netlify.com/)
-- [http://otomat.netlify.com/](http://otomat.netlify.com/)
 
 #### What's implemented?
 - Graphics api, font
