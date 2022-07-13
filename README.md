@@ -3,11 +3,11 @@
 JSGS is an experimental (WIP) javascript implementation of the Pico-8 fantasy console.
 
 #### Demos
-- [http://hello-world-p8.bitballoon.com/](http://hello-world-p8.bitballoon.com/)
-- [http://cast.bitballoon.com/](http://cast.bitballoon.com/)
-- [http://3dcamera.bitballoon.com/](http://3dcamera.bitballoon.com/)
-- [http://fireball.bitballoon.com/](http://fireball.bitballoon.com/)
-- [http://otomat.bitballoon.com/](http://otomat.bitballoon.com/)
+- [http://hello-world-p8.bitballoon.com/](http://hello-world-p8.netlify.com/)
+- [http://cast.bitballoon.com/](http://cast.netlify.com/)
+- [http://3dcamera.bitballoon.com/](http://3dcamera.netlify.com/)
+- [http://fireball.bitballoon.com/](http://fireball.netlify.com/)
+- [http://otomat.bitballoon.com/](http://otomat.netlify.com/)
 
 #### What's implemented?
 - Graphics api, font
